@@ -38,7 +38,7 @@ RUN php artisan config:clear \
 
 # Run migrations (optional – only if DB is ready)
 # Consider running this via entrypoint or `docker-compose` after DB is up
-# RUN php artisan migrate
+# RUN php artisan migrate:fresh
 
 # Expose port 8000
 EXPOSE 8000
