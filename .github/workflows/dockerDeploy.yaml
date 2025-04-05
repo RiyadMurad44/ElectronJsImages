@@ -1,4 +1,4 @@
-name: Deploy Laravel Docker to EC2
+name: Push Laravel Image To DockerHub Then Deploy Laravel Docker to EC2
 
 on:
   push:
@@ -23,10 +23,12 @@ jobs:
         run: docker build -t ${{ secrets.DOCKER_USERNAME }}/laravel_electron:latest .
 
       - name: Push Docker image
-        run: docker push ${{ secrets.DOCKER_USERNAME }}/laravel_electron:latest     
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/laravel_electron:latest
 
   Deploy-Laravel-Docker:
+    needs: Build-Laravel-And-Push-Dockerhub
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -40,6 +42,5 @@ jobs:
           script: |
             docker-compose down
             docker rmi riyadmurad44/laravel_electron:latest
-            docker rmi MySQL:8.0
+            docker rmi mysql:8.0
             docker-compose up -d
-            
