@@ -20,10 +20,10 @@ jobs:
           password: ${{ secrets.DOCKER_TOKEN }}
 
       - name: Build Docker image
-        run: docker build -t {{ secrets.DOCKER_USERNAME }}/laravel_electron:latest .
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/laravel_electron:latest .
 
       - name: Push Docker image
-        run: docker push {{ secrets.DOCKER_USERNAME }}/laravel_electron:latest
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/laravel_electron:latest
       
 
   # Deploy-Laravel-Docker:
