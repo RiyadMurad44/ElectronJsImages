@@ -17,10 +17,6 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Copy Laravel application files
 COPY ./imagesElectron /var/www/html
 
-# Set correct permissions
-# RUN chown -R www-data:www-data /var/www/html \
-#     && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
-
 # Copy .env.example to .env
 RUN cp .env.example .env
 
@@ -33,11 +29,5 @@ RUN php artisan key:generate
 # Make the dockerShell script executable
 RUN chmod +x dockerShell.sh
 
-
-RUN ls -ltrh
-
 # Expose port 8000
 EXPOSE 8000
-
-# Start Apache
-# CMD ["apache2-foreground"]
