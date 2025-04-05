@@ -30,16 +30,6 @@ RUN composer install --no-dev --optimize-autoloader
 # Generate application key
 RUN php artisan key:generate
 
-# Clear and cache config
-RUN php artisan config:clear \
-    && php artisan cache:clear \
-    && php artisan config:cache \
-    && php artisan route:cache
-
-# Run migrations (optional – only if DB is ready)
-# Consider running this via entrypoint or `docker-compose` after DB is up
-# RUN php artisan migrate:fresh
-
 # Expose port 8000
 EXPOSE 8000
 
