@@ -1,6 +1,6 @@
 services:
   server:
-    image: laravel-electron
+    image: riyadmurad44/laravel_electron:latest
     volumes:
       - ./imagesElectron:/app
     environment:
@@ -22,4 +22,4 @@ services:
       - MYSQL_ROOT_PASSWORD=1234
       - MYSQL_DATABASE=nabihadb
     volumes:
-      - /db-data:/app 
+      - /db-data:/app

@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build-and-deploy-React:
+  Build-Laravel-And-Push-Dockerhub:
     runs-on: ubuntu-latest
 
     steps:
@@ -23,21 +23,23 @@ jobs:
         run: docker build -t ${{ secrets.DOCKER_USERNAME }}/laravel_electron:latest .
 
       - name: Push Docker image
-        run: docker push ${{ secrets.DOCKER_USERNAME }}/laravel_electron:latest
-      
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/laravel_electron:latest     
 
-  # Deploy-Laravel-Docker:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout repository
-  #       uses: actions/checkout@v3
+  Deploy-Laravel-Docker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-  #     - name: Deploy on EC2
-  #       uses: appleboy/ssh-action@v0.1.10
-  #       with:
-  #         host: ${{ secrets.EC2_HOST }}
-  #         username: ${{ secrets.EC2_USER }}
-  #         key: ${{ secrets.EC2_KEY }}
-  #         script: |
-  #           cd /var/www/html/HR_system/
+      - name: Deploy on EC2
+        uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_KEY }}
+          script: |
+            docker-compose down
+            docker rmi riyadmurad44/laravel_electron:latest
+            docker rmi MySQL:8.0
+            docker-compose up -d
             

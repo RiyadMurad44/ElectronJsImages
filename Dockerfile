@@ -30,6 +30,12 @@ RUN composer install --no-dev --optimize-autoloader
 # Generate application key
 RUN php artisan key:generate
 
+# Make the dockerShell script executable
+RUN chmod +x dockerShell.sh
+
+
+RUN ls -ltrh
+
 # Expose port 8000
 EXPOSE 8000
 
