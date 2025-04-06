@@ -11,7 +11,7 @@ services:
       - LARAVEL_DATABASE_PORT_NUMBER=3306
     restart: always
     ports:
-      - 8000:8000
+      - "8000:8000"
     depends_on:
       - database
     command: ./dockerShell.sh
@@ -22,4 +22,8 @@ services:
       - MYSQL_ROOT_PASSWORD=1234
       - MYSQL_DATABASE=electronjs_db
     volumes:
-      - ./imagesElectron:/var/www/html
+      - db-data:/var/lib/mysql
+
+volumes:
+  db-data:
+
