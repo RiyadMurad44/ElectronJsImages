@@ -14,7 +14,7 @@ services:
       - 8000:8000
     depends_on:
       - database
-    # command: ./dockerShell.sh
+    command: ./dockerShell.sh
 
   database:
     image: mysql:8.0
@@ -22,4 +22,4 @@ services:
       - MYSQL_ROOT_PASSWORD=1234
       - MYSQL_DATABASE=nabihadb
     volumes:
-      - /db-data:/app 
+      - ./imagesElectron:/var/www/html
