@@ -33,6 +33,10 @@ class AuthController extends Controller{
             $user->name = $request["name"];
             $user->email = $request["email"];
             $user->password = bcrypt($request["password"]);
+            // $user->ip = $request["ip"];
+            // $user->geolocation = $request["geolocation"];
+            $user->ip = 1;
+            $user->geolocation = 1;
             $user->save();
             $user->token = Auth::login($user);
 

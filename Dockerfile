@@ -11,12 +11,20 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Enable Apache mod_rewrite
-RUN a2enmod rewrite
+# RUN a2enmod rewrite
+
+# Enable Apache mod_rewrite
+RUN a2enmod rewrite \
+    && sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|g' /etc/apache2/sites-available/000-default.conf \
+    && sed -i 's|<Directory /var/www/html>|<Directory /var/www/html/public>|g' /etc/apache2/apache2.conf 
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Copy Laravel source code (to ensure all files like app/, bootstrap/, etc. exist)
+# Copy only composer files first (for layer caching)
+# COPY ./imagesElectron/composer.json ./imagesElectron/composer.lock /var/www/html/
+
+# Copy files from imagesElectron to the WORKDIR file in image
 COPY ./imagesElectron /var/www/html
 
 # Install dependencies first to cache them
@@ -31,8 +39,8 @@ COPY dockerShell.sh /usr/local/bin/dockerShell.sh
 # Make the entrypoint script executable
 RUN chmod +x /usr/local/bin/dockerShell.sh
 
-# Expose port 8000
-EXPOSE 8000
+# Expose port 80
+EXPOSE 80
 
 # Use custom entrypoint
 ENTRYPOINT ["dockerShell.sh"]

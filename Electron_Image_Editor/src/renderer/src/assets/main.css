@@ -1,4 +1,10 @@
-@import './base.css';
+*{
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* @import './base.css';
 
 body {
   display: flex;
@@ -160,4 +166,4 @@ code {
   .actions {
     display: none;
   }
-}
+} */

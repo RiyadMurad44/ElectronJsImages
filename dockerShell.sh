@@ -19,5 +19,8 @@ composer install --no-dev --optimize-autoloader
 php artisan key:generate
 php artisan migrate 
 
+# Keep container alive by starting Apache
+apache2-foreground
+
 # Start Laravel server
-php artisan serve --host=0.0.0.0 --port=8000
+# php artisan serve --host=0.0.0.0 --port=8000

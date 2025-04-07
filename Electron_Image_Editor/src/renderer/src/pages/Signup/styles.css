@@ -1,0 +1,125 @@
+/* Main container for the signup screen */
+.signup-container {
+    display: flex;
+    flex-direction: column;
+    background: #FFFFFF;
+  }
+  
+  /* Scroll view background for the signup page */
+  .signup-scroll-view {
+    height: 1024px;
+    align-self: stretch;
+    background: #1B1B1F;
+  }
+  
+  /* Form container for signup inputs */
+  .signup-form {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background: #FFFFFF;
+    padding-top: 100px;
+    padding-bottom: 132px;
+    margin: 137px 423px 217px 423px;
+  }
+  
+  /* Header section for signup title */
+  .signup-header {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 42px;
+  }
+  
+  /* Title text for signup form */
+  .signup-title {
+    color: #1D3043;
+    font-size: 32px;
+    font-weight: bold;
+  }
+  
+  /* Label for input fields */
+  .input-label {
+    color: #000000;
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 47px;
+  }
+  
+  /* Name input field */
+  .name-input {
+    color: #000000;
+    font-size: 16px;
+    margin-bottom: 20px;
+    margin-left: 47px;
+    margin-right: 47px;
+    align-self: stretch;
+    background: none;
+    border-radius: 8px;
+    border: 1px solid #000000;
+    padding: 16px 40px 16px 20px;
+  }
+  
+  /* Email input field */
+  .email-input {
+    color: #000000;
+    font-size: 16px;
+    margin-bottom: 20px;
+    margin-left: 47px;
+    margin-right: 47px;
+    align-self: stretch;
+    background: none;
+    border-radius: 8px;
+    border: 1px solid #000000;
+    padding: 16px 40px 16px 20px;
+  }
+  
+  /* Password input field */
+  .password-input {
+    color: #000000;
+    font-size: 16px;
+    margin-bottom: 100px;
+    margin-left: 47px;
+    margin-right: 47px;
+    align-self: stretch;
+    background: none;
+    border-radius: 8px;
+    border: 1px solid #000000;
+    padding: 16px 40px 16px 20px;
+  }
+  
+  /* Signup button */
+  .signup-button {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #304DDB;
+    border-radius: 8px;
+    border: none;
+    padding-top: 13px;
+    padding-bottom: 13px;
+    margin-bottom: 15px;
+    margin-left: 47px;
+    margin-right: 47px;
+    text-align: left;
+  }
+  
+  /* Text inside the signup button */
+  .button-text {
+    color: #FFFFFF;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  /* Login prompt below the signup form */
+  .login-prompt {
+    color: #000000;
+    font-size: 20px;
+    font-weight: bold;
+    margin-left: 148px;
+    margin-right: 148px;
+  }
+  
