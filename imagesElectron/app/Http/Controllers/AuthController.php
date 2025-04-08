@@ -9,8 +9,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Password;
 
-class AuthController extends Controller{
-    public function signup(Request $request){
+class AuthController extends Controller
+{
+    public function signup(Request $request)
+    {
         try {
             $isValidated = Validator::make($request->all(), [
                 "name" => "required|string|max:255",
@@ -33,10 +35,14 @@ class AuthController extends Controller{
             $user->name = $request["name"];
             $user->email = $request["email"];
             $user->password = bcrypt($request["password"]);
+            $user->ip = $request["ip"];
+            $user->geolocation = json_encode($request["geolocation"]);
+            // $user->ip = $request->ip ?? $user->ip;
+            // if ($request->has('geolocation')) {
+            //     $user->geolocation = json_encode($request->geolocation);
+            // }
             // $user->ip = $request["ip"];
             // $user->geolocation = $request["geolocation"];
-            $user->ip = 1;
-            $user->geolocation = 1;
             $user->save();
             $user->token = Auth::login($user);
 
@@ -65,7 +71,15 @@ class AuthController extends Controller{
                 return errorMessageResponse(false, "Access Error", "Unauthorized Access", 401);
             }
 
-            $user = Auth::user();
+            // $user = Auth::user();
+            $authUser = Auth::user();
+            $user = User::find($authUser->id);
+            $user->ip = $request->ip ?? $user->ip;
+            if ($request->has('geolocation')) {
+                $user->geolocation = json_encode($request->geolocation);
+            }
+            $user->save();
+
             $user->token = $token;
 
             return messageResponse(true, "Login Successful", 200, $user);

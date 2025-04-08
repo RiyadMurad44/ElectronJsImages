@@ -2,6 +2,7 @@ import './styles.css'
 import React, { useState } from 'react'
 import axiosBaseUrl from '../../Axios/axios'
 import { Link, useNavigate } from 'react-router-dom'
+import getGeoAndIp from '../../Utils/getGeoAndIp'
 
 export const Login = () => {
   const navigate = useNavigate()
@@ -12,9 +13,13 @@ export const Login = () => {
     e.preventDefault()
 
     try {
+      const { ip, geolocation } = await getGeoAndIp()
+
       const response = await axiosBaseUrl.post('/login', {
         email,
-        password
+        password,
+        ip,
+        geolocation
       })
 
       if (response.data.success == true) {

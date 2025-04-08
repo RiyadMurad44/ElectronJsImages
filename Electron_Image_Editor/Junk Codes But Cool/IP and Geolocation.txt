@@ -1,0 +1,29 @@
+// Get Geolocation
+      const getGeolocation = () =>
+        new Promise((resolve, reject) => {
+          navigator.geolocation.getCurrentPosition(
+            (position) => {
+              resolve({
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude
+              })
+            },
+            (error) => {
+              console.warn('Geolocation error:', error.message)
+              resolve({ latitude: null, longitude: null }) // fallback
+            }
+          )
+        })
+
+      // Get IP Address
+      const getIpAddress = async () => {
+        try {
+          const ipResponse = await axiosBaseUrl.get('https://api.ipify.org?format=json')
+          return ipResponse.data.ip
+        } catch (error) {
+          console.warn('IP fetch error:', error.message)
+          return null
+        }
+      }
+
+      const [geolocation, ip] = await Promise.all([getGeolocation(), getIpAddress()])
