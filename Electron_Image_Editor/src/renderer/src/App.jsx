@@ -1,15 +1,19 @@
-import { Route, Routes } from 'react-router-dom'
-import { Login } from './pages/Login'
-import { Signup } from './pages/Signup'
 import './assets/base.css'
 import { Home } from './pages/Home'
+import { Login } from './pages/Login'
+import { Signup } from './pages/Signup'
+import { Navbar } from './components/Navbar'
+import { Route, Routes } from 'react-router-dom'
+import ProtectedRoute from './components/ProtectedRoute'
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
-      <Route path='/home' element={<Home />} />
+      <Route element={<ProtectedRoute />}>
+        <Route path='/home' element={<Home />} />
+      </Route>
     </Routes>
   )
 }

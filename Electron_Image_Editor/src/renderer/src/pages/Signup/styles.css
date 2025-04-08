@@ -1,125 +1,204 @@
 /* Main container for the signup screen */
 .signup-container {
-    display: flex;
-    flex-direction: column;
-    background: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+}
+
+/* Scroll view background for the signup page */
+.signup-scroll-view {
+  height: 100%;
+  align-self: stretch;
+  background: #1b1b1f;
+}
+
+/* Form container for signup inputs */
+.signup-form {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background: #ffffff;
+  padding-top: 100px;
+  padding-bottom: 132px;
+  margin: 137px 10vw 217px 10vw;
+}
+
+/* Header section for signup title */
+.signup-header {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 42px;
+}
+
+/* Title text for signup form */
+.signup-title {
+  color: #1d3043;
+  font-size: 32px;
+  font-weight: bold;
+}
+
+/* Label for input fields */
+.input-label {
+  color: #000000;
+  font-size: 20px;
+  font-weight: bold;
+  margin-left: 47px;
+}
+
+/* Name input field */
+.name-input {
+  color: #000000;
+  font-size: 16px;
+  margin-bottom: 20px;
+  margin-left: 47px;
+  margin-right: 47px;
+  align-self: stretch;
+  background: none;
+  border-radius: 8px;
+  border: 1px solid #000000;
+  padding: 16px 40px 16px 20px;
+  flex-grow: 1;
+}
+
+/* Email input field */
+.email-input {
+  color: #000000;
+  font-size: 16px;
+  margin-bottom: 20px;
+  margin-left: 47px;
+  margin-right: 47px;
+  align-self: stretch;
+  background: none;
+  border-radius: 8px;
+  border: 1px solid #000000;
+  padding: 16px 40px 16px 20px;
+  flex-grow: 1;
+}
+
+/* Password input field */
+.password-input {
+  color: #000000;
+  font-size: 16px;
+  margin-bottom: 100px;
+  margin-left: 47px;
+  margin-right: 47px;
+  align-self: stretch;
+  background: none;
+  border-radius: 8px;
+  border: 1px solid #000000;
+  padding: 16px 40px 16px 20px;
+  flex-grow: 1;
+}
+
+/* Signup button */
+.signup-button {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #304ddb;
+  border-radius: 8px;
+  border: none;
+  padding-top: 13px;
+  padding-bottom: 13px;
+  margin-bottom: 15px;
+  margin-left: 10vw;
+  margin-right: 10vw;
+  text-align: left;
+}
+
+/* Text inside the signup button */
+.button-text {
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* Login prompt below the signup form */
+.login-prompt {
+  color: #000000;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Responsive Design */
+
+/* For screens smaller than 768px (tablets, mobile devices) */
+@media (max-width: 768px) {
+  .login-form {
+    margin: 50px 5vw; /* Adjust margins for smaller screens */
   }
-  
-  /* Scroll view background for the signup page */
-  .signup-scroll-view {
-    height: 1024px;
-    align-self: stretch;
-    background: #1B1B1F;
+
+  .login-title {
+    font-size: 24px; /* Adjust font size for mobile */
   }
-  
-  /* Form container for signup inputs */
-  .signup-form {
-    align-self: stretch;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    background: #FFFFFF;
-    padding-top: 100px;
-    padding-bottom: 132px;
-    margin: 137px 423px 217px 423px;
-  }
-  
-  /* Header section for signup title */
-  .signup-header {
-    align-self: stretch;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 42px;
-  }
-  
-  /* Title text for signup form */
-  .signup-title {
-    color: #1D3043;
-    font-size: 32px;
-    font-weight: bold;
-  }
-  
-  /* Label for input fields */
+
   .input-label {
-    color: #000000;
-    font-size: 20px;
-    font-weight: bold;
-    margin-left: 47px;
+    font-size: 18px; /* Adjust font size for mobile */
   }
-  
-  /* Name input field */
-  .name-input {
-    color: #000000;
-    font-size: 16px;
-    margin-bottom: 20px;
-    margin-left: 47px;
-    margin-right: 47px;
-    align-self: stretch;
-    background: none;
-    border-radius: 8px;
-    border: 1px solid #000000;
-    padding: 16px 40px 16px 20px;
-  }
-  
-  /* Email input field */
-  .email-input {
-    color: #000000;
-    font-size: 16px;
-    margin-bottom: 20px;
-    margin-left: 47px;
-    margin-right: 47px;
-    align-self: stretch;
-    background: none;
-    border-radius: 8px;
-    border: 1px solid #000000;
-    padding: 16px 40px 16px 20px;
-  }
-  
-  /* Password input field */
+
+  .email-input,
   .password-input {
-    color: #000000;
-    font-size: 16px;
-    margin-bottom: 100px;
-    margin-left: 47px;
-    margin-right: 47px;
-    align-self: stretch;
-    background: none;
-    border-radius: 8px;
-    border: 1px solid #000000;
-    padding: 16px 40px 16px 20px;
+    font-size: 14px; /* Smaller input font size for mobile */
+    padding: 12px 30px 12px 15px; /* Adjust padding for mobile */
   }
-  
-  /* Signup button */
-  .signup-button {
-    align-self: stretch;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: #304DDB;
-    border-radius: 8px;
-    border: none;
-    padding-top: 13px;
-    padding-bottom: 13px;
-    margin-bottom: 15px;
-    margin-left: 47px;
-    margin-right: 47px;
-    text-align: left;
+
+  .login-button {
+    padding-top: 10px;
+    padding-bottom: 10px;
   }
-  
-  /* Text inside the signup button */
+
   .button-text {
-    color: #FFFFFF;
-    font-size: 20px;
-    font-weight: bold;
+    font-size: 16px; /* Smaller text for button on mobile */
   }
-  
-  /* Login prompt below the signup form */
-  .login-prompt {
-    color: #000000;
-    font-size: 20px;
-    font-weight: bold;
-    margin-left: 148px;
-    margin-right: 148px;
+
+  .signup-prompt {
+    font-size: 18px; /* Adjust font size for mobile */
+    margin-left: 10vw;
+    margin-right: 10vw;
   }
-  
+}
+
+/* For screens smaller than 480px (mobile devices) */
+@media (max-width: 480px) {
+  .login-form {
+    margin: 20px 5vw; /* Reduce margins further on very small screens */
+  }
+
+  .login-title {
+    font-size: 20px; /* Reduce font size even more */
+  }
+
+  .input-label {
+    font-size: 16px; /* Smaller input label */
+  }
+
+  .email-input,
+  .password-input {
+    font-size: 12px; /* Even smaller input font size */
+    padding: 10px 25px 10px 12px; /* Adjust padding */
+  }
+
+  .login-button {
+    margin-left: 5vw;
+    margin-right: 5vw;
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+
+  .button-text {
+    font-size: 14px; /* Smaller text for button */
+  }
+
+  .signup-prompt {
+    font-size: 16px;
+    margin-left: 5vw;
+    margin-right: 5vw;
+  }
+}
