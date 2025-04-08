@@ -11,28 +11,32 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Enable Apache mod_rewrite
-RUN a2enmod rewrite
+RUN a2enmod rewrite \
+    && sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|g' /etc/apache2/sites-available/000-default.conf \
+    && sed -i 's|<Directory /var/www/html>|<Directory /var/www/html/public>|g' /etc/apache2/apache2.conf
 
 # Install Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# Copy Laravel source code (to ensure all files like app/, bootstrap/, etc. exist)
+# Copy Laravel project files
 COPY ./imagesElectron /var/www/html
 
-# Install dependencies first to cache them
+# Install Composer dependencies
 RUN composer install --no-dev --optimize-autoloader
 
-# Copy Laravel application files
-COPY ./imagesElectron /var/www/html
+# Set permissions for storage and bootstrap/cache directories
+RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
+    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
-#Copy the entrypoint script into the image
+# Copy the entrypoint script into the image path where all the globally executed scripts are located
 COPY dockerShell.sh /usr/local/bin/dockerShell.sh
 
 # Make the entrypoint script executable
 RUN chmod +x /usr/local/bin/dockerShell.sh
 
-# Expose port 8000
-EXPOSE 8000
+# Expose port 80 (because we are using apache image which runs on port 80)
+# That is why we expose port 80 and not port 8000 for the laravel
+EXPOSE 80
 
 # Use custom entrypoint
 ENTRYPOINT ["dockerShell.sh"]

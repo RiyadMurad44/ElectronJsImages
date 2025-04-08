@@ -15,11 +15,12 @@ services:
     depends_on:
       - database
     command: ./dockerShell.sh
+    # command: /opt/bitnami/scripts/laravel/run.sh
 
   database:
     image: mysql:8.0
     environment:
       - MYSQL_ROOT_PASSWORD=1234
       - MYSQL_DATABASE=nabihadb
-    volumes:
-      - ./imagesElectron:/var/www/html
+    # volumes:
+    #   - ./imagesElectron:/var/www/html
