@@ -2,7 +2,7 @@ services:
   server:
     image: riyadmurad44/laravel_electron:latest
     volumes:
-      - ./imagesElectron:/app
+      - ./imagesElectron:/var/www/html
     environment:
       - LARAVEL_DATABASE_HOST=database
       - LARAVEL_DATABASE_NAME=electronjs_db

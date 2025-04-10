@@ -106,6 +106,10 @@
     width: 100%; 
 }
 
+.login-button:disabled{
+    background-color: #304cdbd6;
+}
+
 /* Responsive Design */
 
 /* For screens smaller than 768px (tablets, mobile devices) */
