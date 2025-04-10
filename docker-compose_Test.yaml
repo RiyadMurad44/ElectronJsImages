@@ -22,5 +22,3 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=1234
       - MYSQL_DATABASE=nabihadb
-    # volumes:
-    #   - ./imagesElectron:/var/www/html

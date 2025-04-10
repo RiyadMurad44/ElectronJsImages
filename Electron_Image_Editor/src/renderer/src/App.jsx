@@ -3,6 +3,7 @@ import { Home } from './pages/Home'
 import { Login } from './pages/Login'
 import { Signup } from './pages/Signup'
 import { Route, Routes } from 'react-router-dom'
+import Counter from './components/counterTest/counter'
 import ProtectedRoute from './components/ProtectedRoute'
 
 function App() {
