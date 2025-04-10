@@ -8,7 +8,9 @@ RUN apt-get update && apt-get install -y \
     git unzip libzip-dev libonig-dev libxml2-dev zip curl \
     default-mysql-client \
     && docker-php-ext-install pdo pdo_mysql zip \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+    #Clean up apt caches to keep the image size small
+    && apt-get clean && rm -rf /var/lib/apt/lists/* 
+    
 
 # Enable Apache mod_rewrite
 RUN a2enmod rewrite \
@@ -19,10 +21,21 @@ RUN a2enmod rewrite \
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Copy Laravel project files
-COPY ./imagesElectron /var/www/html
+# COPY ./imagesElectron /var/www/html
+
+# Copy only composer.json and composer.lock first to leverage Docker cache (Recently Changed)
+COPY ./imagesElectron/composer.json ./composer.json
+COPY ./imagesElectron/composer.lock ./composer.lock
+
+
 
 # Install Composer dependencies
 RUN composer install --no-dev --optimize-autoloader
+
+# Copy the application (Also new)
+COPY ./imagesElectron /var/www/html
+
+
 
 # Set permissions for storage and bootstrap/cache directories
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \
@@ -34,8 +47,7 @@ COPY dockerShell.sh /usr/local/bin/dockerShell.sh
 # Make the entrypoint script executable
 RUN chmod +x /usr/local/bin/dockerShell.sh
 
-# Expose port 80 (because we are using apache image which runs on port 80)
-# That is why we expose port 80 and not port 8000 for the laravel
+# Expose port 80
 EXPOSE 80
 
 # Use custom entrypoint
