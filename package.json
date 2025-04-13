@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "@iconify/react": "^5.2.1",
     "react-photo-editor": "^3.0.0"
   }
 }

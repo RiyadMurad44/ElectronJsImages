@@ -28,12 +28,22 @@ if (process.contextIsolated) {
   window.api = api
 }
 
-// New Code Added
+// V2
 contextBridge.exposeInMainWorld('electronAPI', {
-  saveImage: (buffer, fileName) => {
+  saveImage: async (buffer, fileName) => {
     if (!fs.existsSync(imageDir)) fs.mkdirSync(imageDir, { recursive: true })
-    const filePath = path.join(imageDir, fileName)
-    fs.writeFileSync(filePath, buffer)
+
+    // Sanitize filename (you can append a timestamp or UUID)
+    const uniqueFileName = `${Date.now()}-${fileName}`
+    const filePath = path.join(imageDir, uniqueFileName)
+
+    try {
+      await fs.promises.writeFile(filePath, buffer) // Async file saving
+      return filePath
+    } catch (err) {
+      console.error('Failed to save image:', err)
+      return null
+    }
   },
 
   getImages: () => {
@@ -42,17 +52,25 @@ contextBridge.exposeInMainWorld('electronAPI', {
       const files = fs.readdirSync(imageDir)
       const imageFiles = files.filter((file) => /\.(png|jpe?g)$/i.test(file))
 
-      return imageFiles.map((file) => {
-        const filePath = path.join(imageDir, file)
-        const imageBuffer = fs.readFileSync(filePath)
-        const base64 = imageBuffer.toString('base64')
-        const mime = file.endsWith('.jpg') || file.endsWith('.jpeg') ? 'image/jpeg' : 'image/png'
-        return {
-          name: file,
-          src: `data:${mime};base64,${base64}`,
-          fullPath: filePath
-        }
-      })
+      return imageFiles
+        .map((file) => {
+          const filePath = path.join(imageDir, file)
+          try {
+            const imageBuffer = fs.readFileSync(filePath)
+            const base64 = imageBuffer.toString('base64')
+            const mime =
+              file.endsWith('.jpg') || file.endsWith('.jpeg') ? 'image/jpeg' : 'image/png'
+            return {
+              name: file,
+              src: `data:${mime};base64,${base64}`,
+              fullPath: filePath
+            }
+          } catch (err) {
+            console.error('Error reading image file:', err)
+            return null
+          }
+        })
+        .filter((img) => img !== null) // Ensure no null images are included
     } catch (err) {
       console.error('Error reading image files:', err)
       return []
@@ -61,7 +79,6 @@ contextBridge.exposeInMainWorld('electronAPI', {
 
   deleteImage: (fullPath) => {
     try {
-      console.log('Attempting to delete image at path:', fullPath)
       if (!fullPath) {
         console.error('Error: fullPath is undefined or empty.')
         return false
@@ -74,3 +91,52 @@ contextBridge.exposeInMainWorld('electronAPI', {
     }
   }
 })
+
+
+
+// New Code Added
+// contextBridge.exposeInMainWorld('electronAPI', {
+//   saveImage: (buffer, fileName) => {
+//     if (!fs.existsSync(imageDir)) fs.mkdirSync(imageDir, { recursive: true })
+//     const filePath = path.join(imageDir, fileName)
+//     fs.writeFileSync(filePath, buffer)
+//   },
+
+//   getImages: () => {
+//     try {
+//       if (!fs.existsSync(imageDir)) return []
+//       const files = fs.readdirSync(imageDir)
+//       const imageFiles = files.filter((file) => /\.(png|jpe?g)$/i.test(file))
+
+//       return imageFiles.map((file) => {
+//         const filePath = path.join(imageDir, file)
+//         const imageBuffer = fs.readFileSync(filePath)
+//         const base64 = imageBuffer.toString('base64')
+//         const mime = file.endsWith('.jpg') || file.endsWith('.jpeg') ? 'image/jpeg' : 'image/png'
+//         return {
+//           name: file,
+//           src: `data:${mime};base64,${base64}`,
+//           fullPath: filePath
+//         }
+//       })
+//     } catch (err) {
+//       console.error('Error reading image files:', err)
+//       return []
+//     }
+//   },
+
+//   deleteImage: (fullPath) => {
+//     try {
+//       console.log('Attempting to delete image at path:', fullPath)
+//       if (!fullPath) {
+//         console.error('Error: fullPath is undefined or empty.')
+//         return false
+//       }
+//       fs.unlinkSync(fullPath)
+//       return true
+//     } catch (err) {
+//       console.error('Failed to delete image:', err)
+//       return false
+//     }
+//   }
+// })
