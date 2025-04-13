@@ -1,0 +1,52 @@
+.upload-container {
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 20px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+  }
+  
+  .upload-box {
+    border: 2px dashed #888;
+    padding: 30px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    display: block;
+    position: relative;
+    border-radius: 10px;
+  }
+  
+  .upload-icon {
+    width: 60px;
+    margin-bottom: 10px;
+  }
+  
+  .preview-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  .input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    font-size: 16px;
+    border: 1px solid #aaa;
+    border-radius: 6px;
+  }
+  
+  .save-button {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 25px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .save-button:hover {
+    background-color: #218838;
+  }
+  

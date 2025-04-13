@@ -15,7 +15,7 @@ const loginSchema = z.object({
   password: z.string().min(8, 'Invalid Password')
 })
 
-export const Login = () => {
+const Login = () => {
   const isLoading = useSelector((state) => state.loading.loadingState)
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -107,3 +107,5 @@ export const Login = () => {
     </div>
   )
 }
+
+export default Login
