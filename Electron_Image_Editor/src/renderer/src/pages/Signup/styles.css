@@ -127,8 +127,19 @@
   width: 100%;
 }
 
-.signup-button:disabled{
+.signup-button:disabled {
   background-color: #304cdbd6;
+}
+
+.login-prompt a {
+  color: #007bff;
+  text-decoration: underline;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.login-prompt a:hover {
+  color: #0056b3;
 }
 
 /* Responsive Design */
@@ -167,6 +178,17 @@
     margin-left: 10vw;
     margin-right: 10vw;
   }
+
+  .login-prompt a {
+    color: #007bff;
+    text-decoration: underline;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .login-prompt a:hover {
+    color: #0056b3;
+  }
 }
 
 /* For screens smaller than 480px (mobile devices) */
@@ -204,5 +226,16 @@
     font-size: 16px;
     margin-left: 5vw;
     margin-right: 5vw;
+  }
+
+  .login-prompt a {
+    color: #007bff;
+    text-decoration: underline;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .login-prompt a:hover {
+    color: #0056b3;
   }
 }

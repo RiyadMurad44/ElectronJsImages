@@ -61,7 +61,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
 
   deleteImage: (fullPath) => {
     try {
-      console.log('Attempting to delete image at path:', fullPath) // Log the fullPath
+      console.log('Attempting to delete image at path:', fullPath)
       if (!fullPath) {
         console.error('Error: fullPath is undefined or empty.')
         return false

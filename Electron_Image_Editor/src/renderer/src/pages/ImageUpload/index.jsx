@@ -36,11 +36,16 @@ const ImageUpload = () => {
 
   return (
     <div className="upload-container">
-      <h2>Add/Edit Image</h2>
+      <h2>Add Image</h2>
 
       <label className="upload-box">
         {image ? (
-          <img src={image.url} alt="Uploaded" className="preview-image" />
+          <>
+            <img src={image.url} alt="Uploaded" className="preview-image" />
+            <button className="remove-button" onClick={() => setImage(null)}>
+              Remove Image
+            </button>
+          </>
         ) : (
           <>
             <img src={uploadIcon} alt="Upload Icon" className="upload-icon" />

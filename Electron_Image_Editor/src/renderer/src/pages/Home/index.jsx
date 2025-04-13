@@ -1,3 +1,4 @@
+import './styles.css'
 import { useNavigate } from 'react-router-dom'
 import ImageCard from '../../components/ImageCards'
 import React, { useEffect, useState } from 'react'
