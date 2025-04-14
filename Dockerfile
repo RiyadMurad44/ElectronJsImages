@@ -10,7 +10,6 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install pdo pdo_mysql zip \
     #Clean up apt caches to keep the image size small
     && apt-get clean && rm -rf /var/lib/apt/lists/* 
-    
 
 # Enable Apache mod_rewrite
 RUN a2enmod rewrite \
@@ -21,21 +20,17 @@ RUN a2enmod rewrite \
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Copy Laravel project files
-# COPY ./imagesElectron /var/www/html
+COPY ./imagesElectron /var/www/html
 
 # Copy only composer.json and composer.lock first to leverage Docker cache (Recently Changed)
-COPY ./imagesElectron/composer.json ./composer.json
-COPY ./imagesElectron/composer.lock ./composer.lock
-
-
+# COPY ./imagesElectron/composer.json ./composer.json
+# COPY ./imagesElectron/composer.lock ./composer.lock
 
 # Install Composer dependencies
 RUN composer install --no-dev --optimize-autoloader
 
 # Copy the application (Also new)
-COPY ./imagesElectron /var/www/html
-
-
+# COPY ./imagesElectron /var/www/html
 
 # Set permissions for storage and bootstrap/cache directories
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache \

@@ -165,3 +165,143 @@ const ImagesPage = () => {
 }
 
 export default ImagesPage
+
+
+// import './styles.css'
+// import React, { useEffect, useState } from 'react'
+// import { useLocation } from 'react-router-dom'
+// import { usePhotoEditor } from 'react-photo-editor'
+
+// const ImagesPage = () => {
+//   const location = useLocation()
+//   const { imgSrc } = location.state || {}
+//   const [file, setFile] = useState(null)
+//   const [watermark, setWatermark] = useState('')
+
+//   useEffect(() => {
+//     // Convert the imgSrc to a File object
+//     fetch(imgSrc)
+//       .then((res) => res.blob())
+//       .then((blob) => {
+//         const file = new File([blob], 'edited-image.png', { type: blob.type })
+//         setFile(file)
+//       })
+//   }, [imgSrc])
+
+//   const {
+//     canvasRef,
+//     brightness,
+//     contrast,
+//     saturate,
+//     grayscale,
+//     rotate,
+//     zoom,
+//     setBrightness,
+//     setContrast,
+//     setSaturate,
+//     setGrayscale,
+//     setRotate,
+//     setZoom,
+//     handleZoomIn,
+//     handleZoomOut,
+//     generateEditedFile,
+//     resetFilters
+//   } = usePhotoEditor({
+//     file,
+//     defaultBrightness: 100,
+//     defaultContrast: 100,
+//     defaultSaturate: 100,
+//     defaultGrayscale: 0
+//   })
+
+//   const handleSave = async () => {
+//     // Draw watermark before saving
+//     const ctx = canvasRef.current.getContext('2d')
+//     ctx.font = '24px sans-serif'
+//     ctx.fillStyle = 'rgba(255,255,255,0.6)'
+//     ctx.fillText(watermark, 20, canvasRef.current.height - 20)
+
+//     const editedFile = await generateEditedFile()
+//     const arrayBuffer = await editedFile.arrayBuffer()
+//     const buffer = Buffer.from(arrayBuffer)
+//     window.electronAPI.saveImage(buffer)
+//   }
+
+//   return (
+//     <div className="image-editor-page">
+//       <aside className="editor-controls">
+//         <div>
+//           <label>Brightness: {brightness}</label>
+//           <input
+//             type="range"
+//             min="0"
+//             max="200"
+//             value={brightness}
+//             onChange={(e) => setBrightness(+e.target.value)}
+//           />
+//         </div>
+//         <div>
+//           <label>Contrast: {contrast}</label>
+//           <input
+//             type="range"
+//             min="0"
+//             max="200"
+//             value={contrast}
+//             onChange={(e) => setContrast(+e.target.value)}
+//           />
+//         </div>
+//         <div>
+//           <label>Saturation: {saturate}</label>
+//           <input
+//             type="range"
+//             min="0"
+//             max="200"
+//             value={saturate}
+//             onChange={(e) => setSaturate(+e.target.value)}
+//           />
+//         </div>
+//         <div>
+//           <label>Grayscale: {grayscale}</label>
+//           <input
+//             type="range"
+//             min="0"
+//             max="100"
+//             value={grayscale}
+//             onChange={(e) => setGrayscale(+e.target.value)}
+//           />
+//         </div>
+//         <div>
+//           <label>Rotate: {rotate}°</label>
+//           <input
+//             type="range"
+//             min="0"
+//             max="360"
+//             value={rotate}
+//             onChange={(e) => setRotate(+e.target.value)}
+//           />
+//         </div>
+//         <div>
+//           <label>Zoom: {zoom}</label>
+//           <div>
+//             <button onClick={handleZoomIn}>Zoom In</button>
+//             <button onClick={handleZoomOut}>Zoom Out</button>
+//           </div>
+//         </div>
+//         <div>
+//           <label>Watermark Text</label>
+//           <input type="text" value={watermark} onChange={(e) => setWatermark(e.target.value)} />
+//         </div>
+//         <div className="editor-actions">
+//           <button onClick={resetFilters}>Reset Filters</button>
+//           <button onClick={handleSave}>Save Image</button>
+//         </div>
+//       </aside>
+
+//       <div className="canvas-container">
+//         <canvas ref={canvasRef} className="rpe-canvas" />
+//       </div>
+//     </div>
+//   )
+// }
+
+// export default ImagesPage
