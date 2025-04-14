@@ -16,7 +16,7 @@ const signupSchema = z.object({
   password: z.string().min(8, 'Password must be at least 8 characters'),
 })
 
-export const Signup = () => {
+const Signup = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
@@ -118,3 +118,5 @@ export const Signup = () => {
     </div>
   )
 }
+
+export default Signup

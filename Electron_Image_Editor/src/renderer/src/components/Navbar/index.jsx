@@ -1,11 +1,14 @@
 import './styles.css'
-import React from 'react'
-import RedButton from '../redButton'
-import { Link } from 'react-router-dom'
-import GreenButton from '../greenButton'
+import React, { useState } from 'react'
+import RedButton from '../RedButton'
+import { Link, useNavigate } from 'react-router-dom'
+import GreenButton from '../GreenButton'
 import ProfilePic from '../../assets/photos/Me.jpeg'
 
 const Navbar = () => {
+  const navigate = useNavigate()
+  const handleLogout = () => {}
+
   return (
     <div className="navbar">
       <div className="navbar-left">
@@ -27,8 +30,8 @@ const Navbar = () => {
       </div>
 
       <div className="navbar-right">
-        <GreenButton label="Add Image" action="/addImage" />
-        <RedButton label="Logout" action={logout} />
+        <GreenButton label="Add Image" action={() => navigate('/imageUpload')} />
+        <RedButton label="Logout" action={handleLogout} />
       </div>
     </div>
   )
