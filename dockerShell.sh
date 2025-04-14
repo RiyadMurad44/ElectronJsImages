@@ -12,12 +12,15 @@ echo "Database is ready."
 # Generate .env if it doesn't exist
 if [ ! -f .env ]; then
   cp .env.example .env
+  php artisan key:generate
 fi
 
 # Run Laravel setup
-composer install --no-dev --optimize-autoloader
-php artisan key:generate
-php artisan migrate 
+# composer install --no-dev --optimize-autoloader
+# php artisan key:generate
+if [ -f .env ]; then
+  php artisan migrate --force
+fi
 
 # Keep container alive by starting Apache
 apache2-foreground

@@ -41,6 +41,5 @@ jobs:
           key: ${{ secrets.EC2_KEY }}
           script: |
             docker-compose down
-            docker rmi riyadmurad44/laravel_electron:latest
-            docker rmi mysql:8.0
+            docker rmi ${{ secrets.DOCKER_USERNAME }}/laravel_electron:latest
             docker-compose up -d

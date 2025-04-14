@@ -92,8 +92,6 @@ contextBridge.exposeInMainWorld('electronAPI', {
   }
 })
 
-
-
 // New Code Added
 // contextBridge.exposeInMainWorld('electronAPI', {
 //   saveImage: (buffer, fileName) => {
