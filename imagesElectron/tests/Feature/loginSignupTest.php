@@ -14,13 +14,14 @@ class loginSignupTest extends TestCase
      * A basic feature test example.
      */
     use WithFaker;
+    use RefreshDatabase;
 
     public function testLoginUser(): void
     {
-        $user = User::factory()->create(); // Assuming you have a User factory
+        $user = User::factory()->create();
         $credentials = [
             'email' => $user->email,
-            'password' => 'password' // Assuming 'password' is used in the factory
+            'password' => 'password'
         ];
 
         $response = $this->postJson('http://localhost:8000/api/v1/login', $credentials);
