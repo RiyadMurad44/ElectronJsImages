@@ -40,6 +40,6 @@ trait ResponseTrait
             'success' => false,
             'errors' => $validator->errors(),
             'message' => 'Invalid Credentials'
-        ], 401));
+        ], 422));
     }
 }
