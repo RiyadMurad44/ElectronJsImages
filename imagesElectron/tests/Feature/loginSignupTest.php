@@ -45,11 +45,9 @@ class loginSignupTest extends TestCase
 
     public function testSignupUser(): void
     {
-        // Create a base user for authentication
         $user = User::factory()->create();
-        $token = JWTAuth::fromUser($user); // Generate a token for the base user
+        $token = JWTAuth::fromUser($user);
 
-        // Prepare geolocation data and other necessary attributes
         $geolocation = [
             'latitude' => $this->faker->latitude(),
             'longitude' => $this->faker->longitude(),
@@ -59,9 +57,9 @@ class loginSignupTest extends TestCase
         $name = $this->faker->name();
 
         $response = $this->withHeaders([
-            "Authorization" => "Bearer $token", // Use the base user's token
+            "Authorization" => "Bearer $token",
         ])->postJson("http://localhost:8000/api/v1/signup", [
-            "name" => $name,  // Name now taken from Faker
+            "name" => $name, 
             "email" => $this->faker->unique()->safeEmail(),
             "password" => "Pa#sword1",
             "ip" => $this->faker->ipv4(),
@@ -101,7 +99,7 @@ class loginSignupTest extends TestCase
     public function testSignupUserWithMissingFields(): void
     {
         $response = $this->postJson('http://localhost:8000/api/v1/signup', [
-            "name" => $this->faker->name(),  // Name dynamically generated
+            "name" => $this->faker->name(),
             "password" => "password",
             "ip" => $this->faker->ipv4(),
             "geolocation" => [
@@ -118,7 +116,7 @@ class loginSignupTest extends TestCase
     public function testSignupWithInvalidEmailFormat(): void
     {
         $response = $this->postJson('http://localhost:8000/api/v1/signup', [
-            "name" => $this->faker->name(),  // Name dynamically generated
+            "name" => $this->faker->name(),
             "email" => "invalidemail",  // Invalid email format
             "password" => "Pa#sword1",
             "ip" => $this->faker->ipv4(),
@@ -128,7 +126,7 @@ class loginSignupTest extends TestCase
             ]
         ]);
 
-        $response->assertStatus(422)  // Validation error status
+        $response->assertStatus(422)
             ->assertJsonValidationErrors(['email']);
     }
 }
