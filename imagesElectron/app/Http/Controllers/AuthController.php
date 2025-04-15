@@ -22,6 +22,10 @@ class AuthController extends Controller
     {
         // $response = UserCreationService::login($request->validated());
         $response = UserCreationService::login($request);
+        if (!$response) {
+            return $this->errorMessageResponse(false, [], 'Invalid credentials', 400);
+        }
+        
         return $this->loginMessageResponse(true, "Logged In Successfully", $response, 200);
     }
 
