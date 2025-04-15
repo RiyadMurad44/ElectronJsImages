@@ -36,11 +36,11 @@ jobs:
         working-directory: ./imagesElectron
         run: |
           cp .env.testing .env
-          composer install --prefer-dist --no-progress
-          php artisan key:generate --env=testing
-          php artisan jwt:secret --env=testing
-          php artisan migrate --env=testing
+          php artisan key:generate
+          php artisan jwt:secret
+          php artisan migrate
           cp .env .env.testing
+
 
       - name: Run Laravel tests
         working-directory: ./imagesElectron
