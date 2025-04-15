@@ -34,7 +34,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cp .env.testing .env
+          cp ./imagesElectron/.env.testing ./imagesElectron/.env
           composer install --prefer-dist --no-progress --no-suggest
           php artisan key:generate
           php artisan migrate --env=testing
