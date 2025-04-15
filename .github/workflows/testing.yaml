@@ -32,12 +32,14 @@ jobs:
         with:
           php-version: 8.2
 
-      - name: Install dependencies
+      - name: Install dependencies and prepare Laravel
+        working-directory: ./imagesElectron
         run: |
-          cp ./imagesElectron/.env.testing ./imagesElectron/.env
-          composer install --prefer-dist --no-progress --no-suggest
+          cp .env.testing .env
+          composer install --prefer-dist --no-progress
           php artisan key:generate
           php artisan migrate --env=testing
 
-      - name: Run tests
+      - name: Run Laravel tests
+        working-directory: ./imagesElectron
         run: php artisan test
