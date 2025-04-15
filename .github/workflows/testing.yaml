@@ -40,8 +40,6 @@ jobs:
           cat .env          # Check the contents of .env after copying
           composer install --prefer-dist --no-progress
           php artisan key:generate
-          php artisan config:clear
-          php artisan cache:clear
           php artisan jwt:secret
           php artisan migrate
           cat .env.testing  
