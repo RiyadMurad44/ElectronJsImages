@@ -35,7 +35,7 @@ jobs:
       - name: Install PHP dependencies and setup Laravel
         working-directory: ./imagesElectron
         run: |
-          cp .env.testing .env
+          cp .env .env.testing
           composer install --prefer-dist --no-progress
           php artisan key:generate --env=testing
           php artisan jwt:secret --env=testing
