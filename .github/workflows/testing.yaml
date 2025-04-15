@@ -36,12 +36,15 @@ jobs:
         working-directory: ./imagesElectron
         run: |
           cp .env.testing .env
+          cat .env.testing  # Check the contents of .env.testing
+          cat .env          # Check the contents of .env after copying
           composer install --prefer-dist --no-progress
           php artisan key:generate
           php artisan jwt:secret
           php artisan migrate
+          cat .env.testing  
+          cat .env          
           cp .env .env.testing
-
 
       - name: Run Laravel tests
         working-directory: ./imagesElectron
