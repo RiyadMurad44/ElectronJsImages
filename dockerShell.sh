@@ -12,7 +12,8 @@ echo "✅ Database is ready."
 if [ ! -f .env ]; then
   echo "📝 .env not found, creating from .env.example"
   cp .env.example .env
-  php artisan key:generate
+  # php artisan key:generate
+  # php artisan jwt:secret
 
   # Inject the values from environment variables into .env
   echo "Injecting environment variables into .env"
