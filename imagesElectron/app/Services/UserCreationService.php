@@ -4,8 +4,8 @@ namespace App\Services;
 
 use Throwable;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 
 class UserCreationService
 {
@@ -16,8 +16,8 @@ class UserCreationService
             $user->name = $request["name"];
             $user->email = $request["email"];
             $user->password = bcrypt($request["password"]);
-            $user->ip = $request["ip"];
-            $user->geolocation = json_encode($request["geolocation"]);
+            $user->geolocation = isset($request["geolocation"]) ? json_encode($request["geolocation"]) : null;
+            $user->ip = $request->ip ?? $user->ip;
             $user->save();
             $user->token = Auth::login($user);
 
@@ -27,12 +27,12 @@ class UserCreationService
         }
     }
 
-    public static function login(Request $request)
+    public static function login($request)
     {
         try {
             $credentials = $request->only('email', 'password');
 
-            $token = Auth::attempt($credentials);
+            $token = JWTAuth::attempt($credentials);
             if (!$token) {
                 return;
             }
