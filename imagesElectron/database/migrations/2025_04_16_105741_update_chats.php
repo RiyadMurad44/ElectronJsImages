@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('Chats', function (Blueprint $table) {
+        Schema::table('chats', function (Blueprint $table) {
             $table->text('username')->after('message');
         });
     }
