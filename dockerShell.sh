@@ -23,6 +23,8 @@ if [ ! -f .env ]; then
   sed -i "s|DB_DATABASE=.*|DB_DATABASE=${LARAVEL_DATABASE_NAME}|" .env
   sed -i "s|DB_USERNAME=.*|DB_USERNAME=${LARAVEL_DATABASE_USER}|" .env
   sed -i "s|DB_PASSWORD=.*|DB_PASSWORD=${LARAVEL_DATABASE_PASSWORD}|" .env
+  sed -i "s|APP_KEY=.*|APP_KEY=${LARAVEL_APP_KEY}|" .env
+  sed -i "s|JWT_SECRET=.*|JWT_SECRET=${LARAVEL_JWT_SECRET}|" .env
 else
   echo "📄 .env already exists"
 fi
