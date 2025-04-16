@@ -1,0 +1,13 @@
+FROM node:18-alpine
+
+WORKDIR /app
+
+COPY chat_server/package*.json /app/
+
+RUN npm install
+
+COPY chat_server/. /app/
+
+EXPOSE 3001
+
+CMD [ "npm", "start" ]

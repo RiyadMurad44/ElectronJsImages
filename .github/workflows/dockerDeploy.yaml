@@ -39,7 +39,7 @@ jobs:
           password: ${{ secrets.DOCKER_TOKEN }}
 
       - name: Build Node.js Docker image
-        run: docker build -f Dockerfile-node -t ${{ secrets.DOCKER_USERNAME }}/nodejs_chat:latest ./chat_server
+        run: docker build -f Dockerfile-node -t ${{ secrets.DOCKER_USERNAME }}/nodejs_chat:latest .
 
       - name: Push Node.js Docker image
         run: docker push ${{ secrets.DOCKER_USERNAME }}/nodejs_chat:latest
