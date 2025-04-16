@@ -52,6 +52,7 @@ const Signup = () => {
 
       if (response.data.success === true) {
         localStorage.setItem('Token', response.data.data.token)
+        localStorage.setItem('UserID', response.data.data.id)
         navigate('/home')
       } else {
         toast.error(response.data.message || "Signup failed")

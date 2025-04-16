@@ -1,8 +1,9 @@
 import './assets/base.css'
 import Home from './pages/Home'
-import Profile from './pages/Profile'
+import Chat from './pages/Chat'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
+import Profile from './pages/Profile'
 import ImagesPage from './pages/ImagesPage'
 import ImagesUpload from './pages/ImageUpload'
 import { Route, Routes } from 'react-router-dom'
@@ -19,6 +20,7 @@ function App() {
         <Route path='/profile' element={<Profile />} />
         <Route path='/imageView' element={<ImagesPage />} />
         <Route path='/imageUpload' element={<ImagesUpload />} />
+        <Route path='/chat' element={<Chat />} />
       </Route>
     </Routes>
   )
