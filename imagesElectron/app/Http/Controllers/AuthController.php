@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Http\Requests\AuthRequest;
 use App\Services\UserCreationService;
 use App\Http\Requests\AuthRequestLogin;
@@ -25,19 +26,19 @@ class AuthController extends Controller
         if (!$response) {
             return $this->errorMessageResponse(false, [], 'Invalid credentials', 400);
         }
-        
+
         return $this->loginMessageResponse(true, "Logged In Successfully", $response, 200);
+    }
+
+    public function logout()
+    {
+        $response = UserCreationService::logout();
+        return $this->loginMessageResponse(true, "Logged Out Successfully", $response, 200);
     }
 
     public function refresh(AuthRequest $request)
     {
         $response = UserCreationService::refresh($request->validated());
         return $this->loginMessageResponse(true, "Refreshed Successfully", $response, 200);
-    }
-
-    public function logout(AuthRequest $request)
-    {
-        $response = UserCreationService::logout($request->validated());
-        return $this->loginMessageResponse(true, "Logged Out Successfully", $response, 200);
     }
 }
