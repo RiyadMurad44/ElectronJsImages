@@ -36,6 +36,8 @@ class User extends Authenticatable implements JWTSubject{
         'remember_token',
     ];
 
+    protected $visible = ['id', 'name', 'email', 'token'];
+
     /**
      * Get the attributes that should be cast.
      *
