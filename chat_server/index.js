@@ -9,7 +9,8 @@ app.use(cors());
 app.use(express.json());
 
 const server = http.createServer(app);
-const LARAVEL_API = "http://localhost:8000/api/v1";
+const LARAVEL_API = "http://server:80/api/v1";
+// const LARAVEL_API = "http://localhost:8000/api/v1";
 
 const io = new Server(server, {
   cors: {
