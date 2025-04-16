@@ -4,10 +4,25 @@ import RedButton from '../RedButton'
 import { Link, useNavigate } from 'react-router-dom'
 import GreenButton from '../GreenButton'
 import ProfilePic from '../../assets/photos/Me.jpeg'
+import axiosBaseUrl from '../../Axios/axios'
 
 const Navbar = () => {
   const navigate = useNavigate()
-  const handleLogout = () => {}
+  const handleLogout = () => {
+    try {
+      const response = axiosBaseUrl.post('/logout')
+
+      if (!response) {
+        return 'Error during Logout'
+      }
+
+      localStorage.clear()
+      navigate('/')
+    } catch (error) {
+      console.log('Error Logout ', error)
+      return
+    }
+  }
 
   return (
     <div className="navbar">

@@ -21,9 +21,6 @@ const io = new Server(server, {
 io.on("connection", (socket) => {
   const userToken = socket.handshake.auth.token;
 
-  console.log("User connected:", socket.id);
-
-  // Send chat history
   axios
     .get(`${LARAVEL_API}/chats`, {
       headers: {
@@ -35,6 +32,7 @@ io.on("connection", (socket) => {
     })
     .catch((err) => {
       console.error("Failed to fetch chat history:", err.message);
+      console.error("Axios error details:", err);
     });
 
   // Handle new message
@@ -66,6 +64,7 @@ io.on("connection", (socket) => {
       })
       .catch((err) => {
         console.error("Error saving or fetching chat messages:", err.message);
+        console.error("Axios error details:", err);
       });
   });
 

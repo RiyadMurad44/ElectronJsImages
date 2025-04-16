@@ -1,13 +1,9 @@
 import './styles.css'
 import { useEffect, useState, useRef } from 'react'
 import { io } from 'socket.io-client'
-import axiosBaseUrl from '../../Axios/axios'
+import { format } from 'date-fns'
 
-const socket = io('http://localhost:3001', {
-  auth: {
-    token: localStorage.getItem('Token')
-  }
-})
+let socketInstance = null
 
 function Chat() {
   const [message, setMessage] = useState('')
@@ -17,17 +13,43 @@ function Chat() {
 
   useEffect(() => {
     const id = localStorage.getItem('UserID')
-    if (id) setUserId(Number(id))
+    if (id) {
+      setUserId(Number(id))
 
-    socket.on('chatHistory', (data) => {
-      setChatHistory(data)
-      scrollToBottom()
-    })
+      if (!socketInstance) {
+        socketInstance = io('http://localhost:3001', {
+          auth: {
+            token: localStorage.getItem('Token')
+          }
+        })
+        console.log('Socket connected')
+      }
 
-    return () => {
-      socket.disconnect()
+      const handleChatHistory = (data) => {
+        console.log('Received chatHistory:', data)
+        const reversedHistory = [...data.data].reverse()
+        setChatHistory(reversedHistory)
+        scrollToBottom()
+      }
+
+      if (socketInstance) {
+        socketInstance.on('chatHistory', handleChatHistory)
+      }
+
+      return () => {
+        if (socketInstance) {
+          socketInstance.off('chatHistory', handleChatHistory)
+          socketInstance.disconnect()
+          socketInstance = null
+          console.log('Socket listener removed (component unmounted)')
+        }
+      }
     }
   }, [])
+
+  useEffect(() => {
+    scrollToBottom()
+  }, [chatHistory])
 
   const scrollToBottom = () => {
     if (messagesEndRef.current) {
@@ -36,8 +58,8 @@ function Chat() {
   }
 
   const sendMessage = () => {
-    if (message.trim() && userId) {
-      socket.emit('message', {
+    if (message.trim() && userId && socketInstance) {
+      socketInstance.emit('message', {
         user_id: userId,
         text: message.trim()
       })
@@ -51,20 +73,40 @@ function Chat() {
     }
   }
 
+  const formatTimestamp = (isoDate) => {
+    try {
+      const date = new Date(isoDate)
+      return format(date, 'h:mm a')
+    } catch (error) {
+      console.error('Error formatting timestamp:', error)
+      return ''
+    }
+  }
+
   return (
     <div className="chat-container">
       <div className="chat-box">
-        <h2>Live Chat</h2>
+        <h2 className="chat-header">Live Chat</h2>
         <div className="chat-messages">
-          {chatHistory.map((msg, index) => (
-            <div key={index} className={`chat-message ${msg.user_id === userId ? 'own' : 'other'}`}>
-              <span className="message-user">User {msg.user_id}</span>
-              <p>{msg.message}</p>
-            </div>
-          ))}
+          {Array.isArray(chatHistory) && chatHistory.length > 0 ? (
+            chatHistory.map((msg) => (
+              <div
+                key={msg.id}
+                className={`chat-message ${msg.user_id === userId ? 'own' : 'other'}`}
+              >
+                <div className="chat-info">
+                  <span className="chat-user">{msg.username}</span>
+                  <span className="chat-timestamp">{formatTimestamp(msg.created_at)}</span>
+                </div>
+                <p className="chat-bubble">{msg.message}</p>
+              </div>
+            ))
+          ) : (
+            <p>No messages yet.</p>
+          )}
           <div ref={messagesEndRef} />
         </div>
-        <div className="chat-input">
+        <div className="chat-input-box">
           <input
             type="text"
             placeholder="Type a message..."

@@ -33,31 +33,48 @@
 .chat-message {
   display: flex;
   flex-direction: column;
-  max-width: 70%;
+  margin-bottom: 0.75rem; /* Increased margin for better separation */
+  align-items: flex-start;
 }
 
 .chat-message.own {
   align-self: flex-end;
   text-align: right;
+  align-items: flex-end;
 }
 
-.chat-message.other {
-  align-self: flex-start;
-  text-align: left;
+.chat-info {
+  display: flex;
+  gap: 0.5rem; /* Space between username and timestamp */
+  margin-bottom: 0.2rem; /* Space between info and bubble */
+  align-items: center; /* Vertically align username and timestamp */
+}
+
+.chat-message.own .chat-info {
+  flex-direction: row-reverse; /* Reverse order for own messages */
 }
 
 .chat-user {
-  font-size: 0.75rem;
+  font-size: 0.8rem;
+  color: #555;
+  font-weight: bold;
+}
+
+.chat-timestamp {
+  font-size: 0.7rem;
   color: #888;
-  margin-bottom: 0.25rem;
 }
 
 .chat-bubble {
   padding: 0.75rem;
   border-radius: 15px;
-  background-color: #e2e8f0;
   font-size: 1rem;
   line-height: 1.4;
+  background-color: #e2e8f0;
+  color: #333;
+  display: inline-block;
+  word-break: break-word;
+  max-width: 80%;
 }
 
 .chat-message.own .chat-bubble {
@@ -79,6 +96,10 @@
   border-radius: 25px;
   font-size: 1rem;
   outline: none;
+  resize: vertical;
+  min-height: 2.5rem;
+  max-height: 6rem;
+  max-width: calc(100% - 6rem);
 }
 
 .chat-input-box button {

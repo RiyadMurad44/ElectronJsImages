@@ -14,6 +14,7 @@ class ChatService
     {
         $chat = new Chat();
         $chat->user_id = Auth::id();
+        $chat->username = Auth::user()->name;
         $chat->message = $validated['message'];
         $chat->save();
 

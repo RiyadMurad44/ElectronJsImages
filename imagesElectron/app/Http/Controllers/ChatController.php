@@ -10,12 +10,12 @@ class ChatController extends Controller
     public function getChats()
     {
         $chats = ChatService::getAll();
-        $this->messageResponse(true, "Chats fetched", 200, $chats);
+        return $this->messageResponse(true, "Chats fetched", 200, $chats);
     }
 
     public function storeChat(ChatRequest $request)
     {
         $chat = ChatService::store($request->validated());
-        $this->messageResponse(true, "Message Stored", 201, $chat);
+        return $this->messageResponse(true, "Message Stored", 201, $chat);
     }
 }
