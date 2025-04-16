@@ -17,7 +17,8 @@ function Chat() {
       setUserId(Number(id))
 
       if (!socketInstance) {
-        socketInstance = io('http://15.237.215.230:3001', {
+        socketInstance = io('http://localhost:3001', {
+        // socketInstance = io('http://15.237.215.230:3001', {
           auth: {
             token: localStorage.getItem('Token')
           }
